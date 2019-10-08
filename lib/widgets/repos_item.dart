@@ -18,7 +18,7 @@ class ReposItem extends StatelessWidget {
     return InkWell(
       onTap: () => showDetailRepos(context, repos),
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 5),
+        margin: EdgeInsets.symmetric(vertical: 10),
         elevation: 1,
         child: ListTile(
           title: Text(

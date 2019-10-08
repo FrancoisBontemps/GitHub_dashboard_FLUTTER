@@ -16,6 +16,7 @@ class _SearchBarState extends State<SearchBar> {
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio(); // for http requests
   String _searchText = "";
+  String listOrRepo = "list";
   List names = new List(); // names we get from API
   List filteredNames = new List(); // names filtered by search text
   Icon _searchIcon = new Icon(Icons.search);
@@ -51,7 +52,7 @@ class _SearchBarState extends State<SearchBar> {
     return Scaffold(
       appBar: _buildBar(context),
       body: Container(
-        child: _searchText.isEmpty ? _buildList() : ListRepos(),
+        child:  listOrRepo == "list" ? _buildList() : ListRepos(),
       ),
       resizeToAvoidBottomPadding: false,
     );
@@ -101,12 +102,13 @@ class _SearchBarState extends State<SearchBar> {
         this._searchIcon = new Icon(Icons.close);
         this._appBarTitle = new TextField(
           controller: _filter,
-          onSubmitted: (string) => getUserRepos(_filter.text),
+          onSubmitted: (string) => [getUserRepos(_filter.text), listOrRepo = "repo"],
           decoration: new InputDecoration(
               prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
         );
       } else {
         this._searchIcon = new Icon(Icons.search);
+        this.listOrRepo = "list";
         this._appBarTitle = new Text('Search Another User');
         filteredNames = names;
         _filter.clear();

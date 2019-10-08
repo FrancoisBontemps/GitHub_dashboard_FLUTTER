@@ -12,14 +12,22 @@ class ListRepos extends StatelessWidget {
     final bool isLoading = listReposProvider.isLoading;
     return isLoading
         ? Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-    )
-        : ListView.builder(
-      itemCount: listRepos.length,
-      itemBuilder: (context, index) => ChangeNotifierProvider.value(
-          value: listRepos[index], child: ReposItem()),
-    );
+            child: CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
+          )
+        : listRepos.length == 0
+            ? Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: Text(
+                  "Sorry no User found",
+                  style: Theme.of(context).textTheme.headline,
+                ),
+              )
+            : ListView.builder(
+                itemCount: listRepos.length,
+                itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                    value: listRepos[index], child: ReposItem()),
+              );
   }
 }

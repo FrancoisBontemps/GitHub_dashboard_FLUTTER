@@ -41,9 +41,11 @@ class _SearchBarState extends State<SearchBar> {
     _filter.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
-    _filter.text = Provider.of<ListReposProvider>(context, listen:false).username;
+    _filter.text =
+        Provider.of<ListReposProvider>(context, listen: false).username;
     this._getNames();
     super.initState();
   }
@@ -52,7 +54,7 @@ class _SearchBarState extends State<SearchBar> {
     return Scaffold(
       appBar: _buildBar(context),
       body: Container(
-        child:  listOrRepo == "list" ? _buildList() : ListRepos(),
+        child: listOrRepo == "list" ? _buildList() : ListRepos(),
       ),
       resizeToAvoidBottomPadding: false,
     );
@@ -73,7 +75,7 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   Widget _buildList() {
-    if (!(_searchText.isEmpty)) {
+    if (_searchText.isNotEmpty) {
       List tempList = new List();
       for (int i = 0; i < filteredNames.length; i++) {
         if (filteredNames[i]['login']
@@ -84,27 +86,50 @@ class _SearchBarState extends State<SearchBar> {
       }
       filteredNames = tempList;
     }
-    return ListView.builder(
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {
         // print(filteredNames[index]['login']);
-        return new ListTile(
-          title: Text(filteredNames[index]['login']),
+        return Container(
+          height: 50,
+          //color: Colors.amber[colorCodes[index]],
+          child: Center(child: Text('${filteredNames[index]['login']}')),
         );
       },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
 
   void _searchPressed() {
-    final getUserRepos =  Provider.of<ListReposProvider>(context, listen: false).getUserRepos;
+    final getUserRepos =
+        Provider.of<ListReposProvider>(context, listen: false).getUserRepos;
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
         this._searchIcon = new Icon(Icons.close);
         this._appBarTitle = new TextField(
+          style: TextStyle(fontSize: 20),
           controller: _filter,
-          onSubmitted: (string) => [getUserRepos(_filter.text), listOrRepo = "repo"],
+          onSubmitted: (string) =>
+              [getUserRepos(_filter.text), listOrRepo = "repo"],
           decoration: new InputDecoration(
-              prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+              hintText: 'Search...',
+              hintStyle: TextStyle(fontSize: 20.0, color: Colors.white70),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.teal,
+                ),
+              ),
+              prefixIcon: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    getUserRepos(_filter.text);
+                    listOrRepo = "repo";
+                  })),
         );
       } else {
         this._searchIcon = new Icon(Icons.search);
@@ -132,7 +157,5 @@ class _SearchBarState extends State<SearchBar> {
       names.shuffle();
       filteredNames = names;
     });
-
   }
-
 }

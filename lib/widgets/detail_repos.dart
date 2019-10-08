@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:github_dashboard/provider/repos_provider.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +9,7 @@ class DetailRepos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       child: Column(
         children: <Widget>[
           Text(

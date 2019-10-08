@@ -8,12 +8,11 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new ChangeNotifierProvider<ListReposProvider>.value(
-        value: ListReposProvider(),
+    return new ChangeNotifierProvider<ListReposProvider>(
+        builder: (_) => ListReposProvider(),
         child: MaterialApp(
-          title: 'Flutter Api Filter list Demo',
           theme: new ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.blueGrey,
           ),
           home: new SearchBar(),
         ));

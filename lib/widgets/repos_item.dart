@@ -9,12 +9,10 @@ class ReposItem extends StatelessWidget {
     showModalBottomSheet(context: ctx, builder: (_) => DetailRepos(value));
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final ReposProvider repos =
-    Provider.of<ReposProvider>(context, listen: false);
+        Provider.of<ReposProvider>(context, listen: false);
     return InkWell(
       onTap: () => showDetailRepos(context, repos),
       child: Card(

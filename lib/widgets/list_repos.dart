@@ -26,8 +26,8 @@ class ListRepos extends StatelessWidget {
               )
             : ListView.builder(
                 itemCount: listRepos.length,
-                itemBuilder: (context, index) => ChangeNotifierProvider.value(
-                    value: listRepos[index], child: ReposItem()),
+                itemBuilder: (context, index) => ChangeNotifierProvider(
+                    builder: (_) => listRepos[index], child: ReposItem()),
               );
   }
 }

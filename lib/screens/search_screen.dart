@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:github_dashboard/widgets/list_repos.dart';
-import 'package:github_dashboard/widgets/repos_item.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
 import 'package:github_dashboard/provider/list_repo_provider.dart';
@@ -86,15 +85,16 @@ class _SearchBarState extends State<SearchBar> {
       }
       filteredNames = tempList;
     }
-
+    final List<int> colorCodes = new List(filteredNames.length);
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {
         // print(filteredNames[index]['login']);
+        colorCodes[index] = 100*index;
         return Container(
           height: 50,
-          //color: Colors.amber[colorCodes[index]],
+          color: Colors.amber[colorCodes[index]],
           child: Center(child: Text('${filteredNames[index]['login']}')),
         );
       },

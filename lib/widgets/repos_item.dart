@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_dashboard/provider/repos_provider.dart';
 import 'package:github_dashboard/widgets/detail_repos.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ReposItem extends StatelessWidget {

@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider :
-  dio :
+  dio : any
   http :
   intl :
 
